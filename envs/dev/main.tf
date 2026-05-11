@@ -15,4 +15,3 @@ module "nginx" {
   external_port  = 8083
 }
 
-# trigger dev pipeline
