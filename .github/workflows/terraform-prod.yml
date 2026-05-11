@@ -1,0 +1,26 @@
+name: Terraform Prod Plan
+
+on:
+  push:
+    paths:
+      - 'envs/prod/**'
+
+jobs:
+  terraform-prod-plan:
+    runs-on: ubuntu-latest
+    environment: prod
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Init
+        working-directory: envs/prod
+        run: terraform init
+
+      - name: Plan
+        working-directory: envs/prod
+        run: terraform plan

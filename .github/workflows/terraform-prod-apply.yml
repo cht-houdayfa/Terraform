@@ -1,0 +1,22 @@
+name: Terraform Prod Apply
+
+on:
+  workflow_dispatch:
+
+jobs:
+  terraform-prod-apply:
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+
+      - name: Init
+        working-directory: envs/prod
+        run: terraform init
+
+      - name: Apply
+        working-directory: envs/prod
+        run: terraform apply -auto-approve

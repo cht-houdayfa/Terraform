@@ -1,0 +1,26 @@
+name: Terraform Stage Pipeline
+
+on:
+  push:
+    paths:
+      - 'envs/stage/**'
+
+jobs:
+  terraform-stage-plan:
+    runs-on: ubuntu-latest
+    environment: stage
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Terraform Init
+        working-directory: envs/stage
+        run: terraform init
+
+      - name: Terraform Plan
+        working-directory: envs/stage
+        run: terraform plan
